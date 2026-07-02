@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import ProductContext from "./productContext";
+import {ADDTOCART} from "./actionTypes.js"
 
 export default function ProductComp({ id, name, price }) {
-  const { addToCart } = useContext(ProductContext);
+  const { dispatch } = useContext(ProductContext);
 
   return (
     <tr>
@@ -12,7 +13,8 @@ export default function ProductComp({ id, name, price }) {
       <td>
         <button
           onClick={() => {
-            addToCart(id);
+            // addToCart(id);
+            dispatch({type:ADDTOCART, pId: id})
           }}
         >
           add to cart

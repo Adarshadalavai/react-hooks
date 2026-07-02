@@ -1,8 +1,9 @@
 import CartContext from "./cartContext";
 import { useContext } from "react";
+import {INCREASEQTY, DECREASEQTY, REMOVEITEM} from "./actionTypes.js"
 
 export default function CartItemComp({ cartItem, item }) {
-  const { incQuantity, decQuantity, removeCartItem } = useContext(CartContext);
+  const { dispatch } = useContext(CartContext);
   return (
     <tr>
       <td>{cartItem.cId}</td>
@@ -11,18 +12,20 @@ export default function CartItemComp({ cartItem, item }) {
       <td>
         <button
           onClick={() => {
-            decQuantity(cartItem.cId);
+            dispatch({type:DECREASEQTY, cId: cartItem.cId})
           }}
         >
           -
         </button>
         {cartItem.quantity}
-        <button onClick={() => incQuantity(cartItem.cId)}>+</button>
+        <button onClick={() => {
+          dispatch({type:INCREASEQTY, cId: cartItem.cId, })
+        }}>+</button>
       </td>
       <td>
         <button
           onClick={() => {
-            removeCartItem(cartItem.cId);
+            dispatch({type: REMOVEITEM, cId: cartItem.cId})
           }}
         >
           remove
